@@ -5,7 +5,7 @@ export default function Start() {
   return (
     <div>
       <h1>Start page</h1>
-      <Link href={ROUTES.LOGIN}>Home</Link>
+      <Link href={ROUTES.LOGIN}>Login</Link>
     </div>
   )
 }
