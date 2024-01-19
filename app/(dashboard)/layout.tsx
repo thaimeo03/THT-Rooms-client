@@ -15,7 +15,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <Header />
             </div>
           </div>
-          <div className='container relative h-[calc(100vh-4rem)] px-4 md:px-6'>{children}</div>
+          <div className='relative h-[calc(100vh-4rem)]'>{children}</div>
         </div>
       </div>
     </ProtectedRoutes>

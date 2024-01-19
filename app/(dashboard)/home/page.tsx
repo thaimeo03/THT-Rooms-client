@@ -1,3 +1,9 @@
+import { MainBoard } from './components'
+
 export default function Home() {
-  return <main className='text-foreground font-bold text-lg'>Hello world</main>
+  return (
+    <main className='w-full h-full'>
+      <MainBoard />
+    </main>
+  )
 }
