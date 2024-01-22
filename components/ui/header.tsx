@@ -1,4 +1,4 @@
-import AvatarWithName from '@/app/(start)/components/avatar-with-name'
+import { AvatarWithName } from '@/app/(start)/components'
 import { ModeToggle } from './dark-mode-toggle'
 
 export default function Header() {

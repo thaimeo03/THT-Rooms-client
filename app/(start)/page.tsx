@@ -1,6 +1,5 @@
-import { ROUTES } from '@/common/constants/routes.constant'
-import Link from 'next/link'
 import Header from '@/components/ui/header'
+import { CreateAndJoinRoom } from './components'
 
 export default function Start() {
   return (
@@ -16,14 +15,8 @@ export default function Start() {
                   Join our community and start creating your own rooms.
                 </p>
               </div>
-              <div className=' flex flex-col gap-2 min-[400px]:flex-row'>
-                <Link
-                  className='inline-flex h-10 items-center justify-center rounded-md bg-white px-8 text-sm font-medium text-emerald-500 shadow transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50'
-                  href={ROUTES.HOME}
-                >
-                  Create Room
-                </Link>
-              </div>
+
+              <CreateAndJoinRoom />
             </div>
             {/* Change to image or svg*/}
             <div className='absolute bottom-20 right-20 top-10 w-[600px] bg-neutral-300'></div>
