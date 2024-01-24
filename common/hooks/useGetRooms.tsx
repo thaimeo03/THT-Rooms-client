@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { Roles } from '../enums/roles.enum'
 import { getRoomsByHostIdApi } from '@/apis/room.api'
-import { IRoomResponse } from '@/interfaces/room.interface'
+import { IRoomsResponse } from '@/interfaces/room.interface'
 
 export default function useGetRooms() {
   const { auth } = useContext(AuthContext) as AuthContextType
@@ -22,7 +22,7 @@ export default function useGetRooms() {
   console.log(data)
 
   return {
-    data: data as IRoomResponse,
+    data: data as IRoomsResponse,
     isSuccess
   }
 }

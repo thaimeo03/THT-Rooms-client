@@ -9,4 +9,10 @@ export interface IRoom {
   updated_at: string
 }
 
-export type IRoomResponse = DataResponse<IRoom[]>
+export type IRoomsResponse = DataResponse<IRoom[]>
+export type IRoomResponse = DataResponse<IRoom>
+
+export interface ICreateRoom {
+  name: string
+  color: string
+}

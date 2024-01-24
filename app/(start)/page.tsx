@@ -15,7 +15,6 @@ export default function Start() {
                   Join our community and start creating your own rooms.
                 </p>
               </div>
-
               <CreateAndJoinRoom />
             </div>
             {/* Change to image or svg*/}
