@@ -14,9 +14,42 @@ import { Label } from '@/components/ui/label'
 import { FaPlus } from 'react-icons/fa'
 import { HexColorPicker } from 'react-colorful'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { ICreateRoom } from '@/interfaces/room.interface'
+import { useMutation } from '@tanstack/react-query'
+import { createRoomApi } from '@/apis/room.api'
+import useGetRooms from '@/common/hooks/useGetRooms'
 
 export default function BoxAddNew() {
   const [color, setColor] = useState('#aabbcc')
+  const { prefetchRooms } = useGetRooms()
+
+  // Initialize react hook form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<Omit<ICreateRoom, 'color'>>({
+    // resolver:
+  })
+
+  // Create room mutation
+  const createRoomMutation = useMutation({
+    mutationFn: (data: ICreateRoom) => createRoomApi(data),
+    onSuccess: (data) => {
+      console.log(data)
+      return prefetchRooms()
+    }
+  })
+
+  const handleSubmitForm = (data: Omit<ICreateRoom, 'color'>) => {
+    const payLoad: ICreateRoom = {
+      name: data.name,
+      color
+    }
+
+    createRoomMutation.mutate(payLoad)
+  }
 
   return (
     <div className='col-span-2'>
@@ -31,23 +64,22 @@ export default function BoxAddNew() {
         <DialogContent className='sm:max-w-[425px]'>
           <DialogHeader>
             <DialogTitle>Create room</DialogTitle>
-            <DialogDescription>Make changes to your profile here. Click save when you're done.</DialogDescription>
           </DialogHeader>
-          <div className='grid gap-4 py-4'>
+          <form onSubmit={handleSubmit(handleSubmitForm)} className='grid gap-4 py-4'>
             <div className='grid grid-cols-4 items-center gap-4'>
               <Label htmlFor='name' className='text-right'>
                 Name
               </Label>
-              <Input id='name' defaultValue='Pedro Duarte' className='col-span-3' />
+              <Input id='name' className='col-span-3' register={register('name')} errors={errors.name} />
             </div>
             <div className='grid grid-cols-4 items-center gap-4'>
               <Label className='text-right'>Color</Label>
               <HexColorPicker color={color} onChange={setColor} />
             </div>
-          </div>
-          <DialogFooter>
-            <Button type='submit'>Create</Button>
-          </DialogFooter>
+            <DialogFooter>
+              <Button type='submit'>Create</Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
     </div>
