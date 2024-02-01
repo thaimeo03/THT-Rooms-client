@@ -1,5 +1,5 @@
 'use client'
-import { getProfile } from '@/apis/user.api'
+import { getProfileApi } from '@/apis/user.api'
 import { ROUTES } from '@/common/constants/routes.constant'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useQuery } from '@tanstack/react-query'
@@ -8,7 +8,7 @@ import Link from 'next/link'
 export default function AvatarWithName() {
   const { data, isSuccess } = useQuery({
     queryKey: ['profile'],
-    queryFn: getProfile
+    queryFn: getProfileApi
   })
   const profile = data?.data
 

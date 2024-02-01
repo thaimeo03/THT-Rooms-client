@@ -16,15 +16,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <SwitchRoleProvider>
-          <AuthContextProvider>
-            <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <SwitchRoleProvider>
+            <AuthContextProvider>
               <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
                 {children}
               </ThemeProvider>
-            </QueryClientProvider>
-          </AuthContextProvider>
-        </SwitchRoleProvider>
+            </AuthContextProvider>
+          </SwitchRoleProvider>
+        </QueryClientProvider>
       </body>
     </html>
   )

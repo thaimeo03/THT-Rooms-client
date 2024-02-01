@@ -2,7 +2,7 @@
 import { useContext, useEffect } from 'react'
 import { AuthContext, AuthContextType } from './auth-context-provider'
 import { useQuery } from '@tanstack/react-query'
-import { getProfile } from '@/apis/user.api'
+import { getProfileApi } from '@/apis/user.api'
 import { redirect } from 'next/navigation'
 import { ROUTES } from '@/common/constants/routes.constant'
 import { LoadingPage } from '.'
@@ -12,7 +12,7 @@ export default function ProtectedRoutes({ children }: { children: React.ReactNod
 
   const { data, isSuccess, isError } = useQuery({
     queryKey: ['profile'],
-    queryFn: getProfile
+    queryFn: getProfileApi
   })
 
   useEffect(() => {
