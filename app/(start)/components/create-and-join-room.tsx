@@ -17,6 +17,10 @@ export default function CreateAndJoinRoom() {
     mutationFn: () => createRoomApi(roomDefault),
     onSuccess: () => {
       router.push(ROUTES.HOME)
+    },
+    onError: () => {
+      console.log('error')
+      router.push(ROUTES.LOGIN)
     }
   })
 

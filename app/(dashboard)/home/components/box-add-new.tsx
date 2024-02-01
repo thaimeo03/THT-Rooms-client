@@ -1,14 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { FaPlus } from 'react-icons/fa'
@@ -22,12 +14,14 @@ import useGetRooms from '@/common/hooks/useGetRooms'
 
 export default function BoxAddNew() {
   const [color, setColor] = useState('#aabbcc')
+  const [open, setOpen] = useState(false)
   const { prefetchRooms } = useGetRooms()
 
   // Initialize react hook form
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm<Omit<ICreateRoom, 'color'>>({
     // resolver:
@@ -49,11 +43,13 @@ export default function BoxAddNew() {
     }
 
     createRoomMutation.mutate(payLoad)
+    reset()
+    return setOpen(false)
   }
 
   return (
     <div className='col-span-2'>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <div className='w-full h-full grid place-items-center'>
             <div className='p-16 border border-b-2 rounded-full cursor-pointer hover:bg-neutral-200 hover:bg-opacity-10'>
