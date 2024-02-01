@@ -1,7 +1,14 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import { IRoom } from '@/interfaces/room.interface'
+import { useRouter } from 'next/navigation'
 
 export default function BoxJoinRoom({ room }: { room: IRoom }) {
+  const router = useRouter()
+  const handleJoinRoom = () => {
+    router.push(`/room/${room.id}`)
+  }
+
   return (
     <div
       className={`col-span-2 rounded-lg border text-card-foreground shadow-sm w-full max-w-xs bg-transparent`}
@@ -14,7 +21,9 @@ export default function BoxJoinRoom({ room }: { room: IRoom }) {
         <p>Click the button below to join the room.</p>
       </div>
       <div className='flex items-center p-4'>
-        <Button className={`bg-primary text-white hover:bg-opacity-70`}>Join room</Button>
+        <Button onClick={handleJoinRoom} className={`block bg-primary text-white hover:bg-opacity-70`}>
+          Join room
+        </Button>
       </div>
     </div>
   )
