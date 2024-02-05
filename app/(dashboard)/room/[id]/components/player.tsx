@@ -1,10 +1,23 @@
+'use client'
 import ReactPlayer from 'react-player'
 
-export default function Player() {
+export default function Player({
+  url,
+  muted,
+  playing,
+  isActive
+}: {
+  url: string
+  muted: boolean
+  playing: boolean
+  isActive: boolean
+}) {
+  console.log(url, muted, playing, isActive)
+
   return (
     <div>
       <div className='w-full h-[70vh] bg-slate-800'>
-        <ReactPlayer url='https://youtu.be/D4Sj-N6pBzc' muted={true} playing={true} width={'100%'} height={'100%'} />
+        {playing && <ReactPlayer url={url} muted={muted} playing={playing} width={'100%'} height={'100%'} />}
       </div>
     </div>
   )
