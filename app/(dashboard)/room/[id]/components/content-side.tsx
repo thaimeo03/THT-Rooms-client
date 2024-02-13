@@ -9,6 +9,7 @@ import { useContext, useEffect, useState } from 'react'
 import { cloneDeep } from 'lodash'
 import { SocketContext } from './socket-provider'
 import { Button } from '@/components/ui/button'
+import CopyModel from './copy-model'
 
 export default function ContentSide() {
   const params = useParams()
@@ -148,7 +149,6 @@ export default function ContentSide() {
           return <Player key={playerId} url={url} muted={muted} playing={playing} isActive={false} />
         })}
       </div>
-
       <div className='absolute bottom-0 left-0 right-0 h-[20vh]'>
         <div className='grid place-items-center h-full'>
           <div className='flex flex-row space-x-8'>
@@ -158,6 +158,7 @@ export default function ContentSide() {
           </div>
         </div>
       </div>
+      <CopyModel text={window.location.href} />
     </div>
   )
 }

@@ -7,6 +7,7 @@ import { AuthContextProvider } from './(dashboard)/components'
 import { ThemeProvider } from '@/components/ui/theme-provider'
 import SwitchRoleProvider from '@/components/ui/switch-role-provider'
 import SocketProvider from './(dashboard)/room/[id]/components/socket-provider'
+import { ToastProvider } from '@radix-ui/react-toast'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <SwitchRoleProvider>
               <AuthContextProvider>
                 <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-                  {children}
+                  <ToastProvider>{children}</ToastProvider>
                 </ThemeProvider>
               </AuthContextProvider>
             </SwitchRoleProvider>
