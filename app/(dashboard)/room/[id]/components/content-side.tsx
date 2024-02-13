@@ -8,6 +8,7 @@ import usePlayer from '@/common/hooks/usePlayer'
 import { useContext, useEffect, useState } from 'react'
 import { cloneDeep } from 'lodash'
 import { SocketContext } from './socket-provider'
+import { Button } from '@/components/ui/button'
 
 export default function ContentSide() {
   const params = useParams()
@@ -15,15 +16,13 @@ export default function ContentSide() {
   const roomId = params.id as string
   const { myPeerId, peer } = usePeer()
   const { stream } = useMediaStream()
-  const { players, setPlayers, playerHighlighted, nonHighlightedPlayers } = usePlayer({
-    myPeerId: myPeerId,
-    roomId,
-    peer
-  })
+  const { players, setPlayers, playerHighlighted, nonHighlightedPlayers, leaveRoom, toggleAudio, toggleVideo } =
+    usePlayer({
+      myPeerId: myPeerId,
+      roomId,
+      peer
+    })
   const [users, setUsers] = useState([])
-
-  console.log('playerHighlighted', playerHighlighted)
-  console.log('nonHighlightedPlayers', nonHighlightedPlayers)
 
   useEffect(() => {
     if (!socket || !peer || !stream) return
@@ -132,8 +131,8 @@ export default function ContentSide() {
   }, [myPeerId, setPlayers, stream])
 
   return (
-    <div>
-      <div>
+    <div className='relative h-full'>
+      <div className='h-[80vh]'>
         {playerHighlighted && (
           <Player
             url={playerHighlighted.url}
@@ -143,11 +142,21 @@ export default function ContentSide() {
           />
         )}
       </div>
-      <div>
+      <div className='absolute top-0 right-5'>
         {Object.keys(nonHighlightedPlayers).map((playerId) => {
           const { url, muted, playing } = nonHighlightedPlayers[playerId]
           return <Player key={playerId} url={url} muted={muted} playing={playing} isActive={false} />
         })}
+      </div>
+
+      <div className='absolute bottom-0 left-0 right-0 h-[20vh]'>
+        <div className='grid place-items-center h-full'>
+          <div className='flex flex-row space-x-8'>
+            <Button onClick={toggleVideo}>Video</Button>
+            <Button onClick={toggleAudio}>Audio</Button>
+            <Button onClick={leaveRoom}>Leave</Button>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -12,13 +12,13 @@ export default function Player({
   playing: boolean
   isActive: boolean
 }) {
-  console.log(url, muted, playing, isActive)
-
-  return (
-    <div>
-      <div className='w-full h-[70vh] bg-slate-800'>
-        {playing && <ReactPlayer url={url} muted={muted} playing={playing} width={'100%'} height={'100%'} />}
-      </div>
+  return isActive ? (
+    <div className='w-full h-full'>
+      {playing && <ReactPlayer url={url} muted={muted} playing={playing} width={'100%'} height={'100%'} />}
+    </div>
+  ) : (
+    <div className='w-40 h-40 border border-emerald-400'>
+      {playing && <ReactPlayer url={url} muted={muted} playing={playing} width={'100%'} height={'100%'} />}
     </div>
   )
 }
