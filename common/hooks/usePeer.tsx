@@ -1,13 +1,13 @@
 'use client'
 import { useParams } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { Peer } from 'peerjs'
-import { io } from 'socket.io-client'
-
-const socket = io('http://localhost:9999')
+import { SocketContext } from '@/app/(dashboard)/room/[id]/components/socket-provider'
+import { Socket } from 'socket.io-client'
 
 export default function usePeer() {
   const params = useParams()
+  const socket = useContext(SocketContext) as Socket
   const roomId = params.id as string
   const [peer, setPeer] = useState<Peer | null>(null)
   const [myPeerId, setMyPeerId] = useState('')

@@ -1,14 +1,14 @@
 'use client'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { cloneDeep } from 'lodash'
 import Peer from 'peerjs'
 import { useRouter } from 'next/navigation'
-import { io } from 'socket.io-client'
-
-const socket = io('http://localhost:9999')
+import { SocketContext } from '@/app/(dashboard)/room/[id]/components/socket-provider'
+import { Socket } from 'socket.io-client'
 
 export default function usePlayer({ myPeerId, roomId, peer }: { myPeerId: string; roomId: string; peer: Peer | null }) {
   const router = useRouter()
+  const socket = useContext(SocketContext) as Socket
   const [players, setPlayers] = useState<any>({})
   const playersCopy = cloneDeep(players)
 

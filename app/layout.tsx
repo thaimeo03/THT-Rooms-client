@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AuthContextProvider } from './(dashboard)/components'
 import { ThemeProvider } from '@/components/ui/theme-provider'
 import SwitchRoleProvider from '@/components/ui/switch-role-provider'
+import SocketProvider from './(dashboard)/room/[id]/components/socket-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,15 +17,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <QueryClientProvider client={queryClient}>
-          <SwitchRoleProvider>
-            <AuthContextProvider>
-              <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-                {children}
-              </ThemeProvider>
-            </AuthContextProvider>
-          </SwitchRoleProvider>
-        </QueryClientProvider>
+        <SocketProvider>
+          <QueryClientProvider client={queryClient}>
+            <SwitchRoleProvider>
+              <AuthContextProvider>
+                <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+                  {children}
+                </ThemeProvider>
+              </AuthContextProvider>
+            </SwitchRoleProvider>
+          </QueryClientProvider>
+        </SocketProvider>
       </body>
     </html>
   )

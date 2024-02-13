@@ -2,16 +2,16 @@
 import usePeer from '@/common/hooks/usePeer'
 import Player from './player'
 import { useParams } from 'next/navigation'
-import { io } from 'socket.io-client'
+import { Socket } from 'socket.io-client'
 import useMediaStream from '@/common/hooks/useMediaStream'
 import usePlayer from '@/common/hooks/usePlayer'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { cloneDeep } from 'lodash'
-
-const socket = io('http://localhost:9999')
+import { SocketContext } from './socket-provider'
 
 export default function ContentSide() {
   const params = useParams()
+  const socket = useContext(SocketContext) as Socket
   const roomId = params.id as string
   const { myPeerId, peer } = usePeer()
   const { stream } = useMediaStream()
@@ -129,7 +129,7 @@ export default function ContentSide() {
         playing: true
       }
     }))
-  }, [, setPlayers, stream])
+  }, [myPeerId, setPlayers, stream])
 
   return (
     <div>
