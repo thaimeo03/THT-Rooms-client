@@ -34,7 +34,7 @@ export default function CopyModel({ text }: CopyModelProps) {
                 <Label htmlFor='link' className='sr-only'>
                   Link
                 </Label>
-                <Input id='link' className='w-full' defaultValue='https://ui.shadcn.com/docs/installation' readOnly />
+                <Input id='link' className='w-full' defaultValue='Click to copy the link' readOnly />
               </div>
               <Button type='submit' onClick={handleCopy} size='sm' className='hover:bg-opacity-80'>
                 <span className='sr-only'>Copy</span>
