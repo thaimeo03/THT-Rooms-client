@@ -10,6 +10,7 @@ import { cloneDeep } from 'lodash'
 import { SocketContext } from './socket-provider'
 import { Button } from '@/components/ui/button'
 import CopyModel from './copy-model'
+import Chat from './chat'
 
 export default function ContentSide() {
   const params = useParams()
@@ -151,10 +152,11 @@ export default function ContentSide() {
       </div>
       <div className='absolute bottom-0 left-0 right-0 h-[20vh]'>
         <div className='grid place-items-center h-full'>
-          <div className='flex flex-row space-x-8'>
+          <div className='flex flex-row items-center space-x-8'>
             <Button onClick={toggleVideo}>Video</Button>
             <Button onClick={toggleAudio}>Audio</Button>
             <Button onClick={leaveRoom}>Leave</Button>
+            <Chat />
           </div>
         </div>
       </div>
