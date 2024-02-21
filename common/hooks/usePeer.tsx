@@ -4,10 +4,12 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import { Peer } from 'peerjs'
 import { SocketContext } from '@/app/(dashboard)/room/[id]/components/socket-provider'
 import { Socket } from 'socket.io-client'
+import { AuthContext, AuthContextType } from '@/app/(dashboard)/components/auth-context-provider'
 
 export default function usePeer() {
   const params = useParams()
   const socket = useContext(SocketContext) as Socket
+  const { auth } = useContext(AuthContext) as AuthContextType
   const roomId = params.id as string
   const [peer, setPeer] = useState<Peer | null>(null)
   const [myPeerId, setMyPeerId] = useState('')
@@ -27,7 +29,8 @@ export default function usePeer() {
         setMyPeerId(id)
         socket.emit('join-room', {
           roomId,
-          myPeerId: id
+          myPeerId: id,
+          userId: auth.profile.id
         })
       })
     })()
