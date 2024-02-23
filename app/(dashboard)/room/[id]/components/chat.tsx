@@ -8,11 +8,15 @@ import { SocketContext } from './socket-provider'
 import { Socket } from 'socket.io-client'
 import { IChat, IMessage } from '@/interfaces/chat.interface'
 import { AuthContext, AuthContextType } from '@/app/(dashboard)/components/auth-context-provider'
+import { useQuery } from '@tanstack/react-query'
 
 export default function Chat() {
   const socket = useContext(SocketContext) as Socket
   const { auth } = useContext(AuthContext) as AuthContextType
   const [message, setMessage] = useState('')
+  const {} = useQuery({
+    queryKey: ['chats']
+  })
 
   useEffect(() => {
     if (!socket) return
