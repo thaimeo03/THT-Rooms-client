@@ -9,20 +9,35 @@ import { Socket } from 'socket.io-client'
 import { IChat, IMessage } from '@/interfaces/chat.interface'
 import { AuthContext, AuthContextType } from '@/app/(dashboard)/components/auth-context-provider'
 import { useQuery } from '@tanstack/react-query'
+import { useParams } from 'next/navigation'
+import { getAllChatsApi } from '@/apis/chat.api'
 
 export default function Chat() {
+  const params = useParams()
   const socket = useContext(SocketContext) as Socket
   const { auth } = useContext(AuthContext) as AuthContextType
   const [message, setMessage] = useState('')
-  const {} = useQuery({
-    queryKey: ['chats']
+  const [chats, setChats] = useState<IChat[]>()
+
+  const { data, isSuccess } = useQuery({
+    queryKey: ['chats'],
+    queryFn: () => getAllChatsApi(params.id as string)
   })
+
+  useEffect(() => {
+    return setChats(data as IChat[])
+  }, [isSuccess])
 
   useEffect(() => {
     if (!socket) return
 
     const handleReceiveMessage = (chat: IChat) => {
-      console.log(chat)
+      setChats((pre) => {
+        if (pre) {
+          return [...pre, chat]
+        }
+        return [chat]
+      })
     }
 
     socket.on('receive-message', handleReceiveMessage)
@@ -41,7 +56,7 @@ export default function Chat() {
     }
 
     socket.emit('send-message', payload)
-    setMessage('')
+    return setMessage('')
   }
 
   return (
@@ -57,22 +72,8 @@ export default function Chat() {
         </SheetHeader>
         <div className='relative h-[calc(100%-62px)] px-4'>
           <ScrollArea className='h-[calc(100%-5rem)]'>
-            <div className='flex flex-col gap-10 ]'>
-              <p>Message</p>
-              <p>Message</p>
-              <p>Message</p>
-              <p>Message</p>
-              <p>Message</p>
-              <p>Message</p>
-              <p>Message</p>
-              <p>Message</p>
-              <p>Message</p>
-              <p>Message</p>
-              <p>Message</p>
-              <p>Message</p>
-              <p>Message</p>
-              <p>Message</p>
-              <p>Message</p>
+            <div className='flex flex-col gap-5 mt-2'>
+              {chats && chats.map((chat) => <div key={chat.id}>{chat.message}</div>)}
             </div>
           </ScrollArea>
           <div className='absolute bottom-0 left-0 right-0 h-20 z-50 bg-background'>
