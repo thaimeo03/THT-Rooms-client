@@ -8,7 +8,7 @@ interface IUserSendedMessage {
 }
 
 export interface IChat {
-  id: string
+  id?: string
   user: IUserSendedMessage
   message: string
   created_at: string
