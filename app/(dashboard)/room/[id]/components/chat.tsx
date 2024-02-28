@@ -104,7 +104,7 @@ export default function Chat() {
         </SheetHeader>
         <div className='relative h-[calc(100%-62px)]'>
           <ScrollArea className='h-[calc(100%-6rem)] px-4 scale-y-[-1]'>
-            <div className='flex flex-col gap-4 mt-2'>
+            <div className='flex flex-col gap-4 mt-2 scale-y-[-1]'>
               {chats &&
                 chats.map((chat, index) => (
                   <Message

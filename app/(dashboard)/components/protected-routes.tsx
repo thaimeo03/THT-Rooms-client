@@ -6,6 +6,7 @@ import { getProfileApi } from '@/apis/user.api'
 import { redirect } from 'next/navigation'
 import { ROUTES } from '@/common/constants/routes.constant'
 import { LoadingPage } from '.'
+import { Roles } from '@/common/enums/roles.enum'
 
 export default function ProtectedRoutes({ children }: { children: React.ReactNode }) {
   const { auth, setAuth } = useContext(AuthContext) as AuthContextType
@@ -28,5 +29,8 @@ export default function ProtectedRoutes({ children }: { children: React.ReactNod
     }
   }, [isSuccess, isError])
 
+  if (auth.isAuth && auth.profile.role !== Roles.HOST) {
+    return redirect(ROUTES.START)
+  }
   return auth.isAuth ? <>{children}</> : <LoadingPage />
 }
