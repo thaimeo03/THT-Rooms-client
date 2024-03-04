@@ -29,7 +29,7 @@ export default function ProtectedRoutes({ children }: { children: React.ReactNod
     }
   }, [isSuccess, isError])
 
-  if (auth.isAuth && auth.profile.role !== Roles.HOST) {
+  if (auth.isAuth) {
     return redirect(ROUTES.START)
   }
   return auth.isAuth ? <>{children}</> : <LoadingPage />
