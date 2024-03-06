@@ -13,9 +13,7 @@ export default function useGetRooms() {
   const { data, isSuccess } = useQuery({
     queryKey: ['rooms'],
     queryFn: () => {
-      if (profile.role === Roles.HOST) {
-        return getRoomsByHostIdApi(profile.id)
-      }
+      return getRoomsByHostIdApi(profile.id)
       // Handle get host id for user
     }
   })
@@ -24,9 +22,7 @@ export default function useGetRooms() {
     queryClient.prefetchQuery({
       queryKey: ['rooms'],
       queryFn: () => {
-        if (profile.role === Roles.HOST) {
-          return getRoomsByHostIdApi(profile.id)
-        }
+        return getRoomsByHostIdApi(profile.id)
         // Handle get host id for user
       }
     })

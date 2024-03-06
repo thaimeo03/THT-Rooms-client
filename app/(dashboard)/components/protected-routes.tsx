@@ -18,6 +18,7 @@ export default function ProtectedRoutes({ children }: { children: React.ReactNod
 
   useEffect(() => {
     if (isSuccess) {
+      console.log(auth.isAuth)
       return setAuth({
         isAuth: true,
         profile: data.data
@@ -29,8 +30,5 @@ export default function ProtectedRoutes({ children }: { children: React.ReactNod
     }
   }, [isSuccess, isError])
 
-  if (auth.isAuth) {
-    return redirect(ROUTES.START)
-  }
   return auth.isAuth ? <>{children}</> : <LoadingPage />
 }
