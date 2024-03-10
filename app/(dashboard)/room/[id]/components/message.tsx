@@ -32,7 +32,7 @@ export default function Message({ chat, isLastMessage, isSender, isSended, isSen
     <div>
       <div className={`flex ${chat.user.id === auth.profile.id ? 'justify-end' : 'justify-start'}`}>
         <div className='flex flex-row space-x-1'>
-          {!(auth.profile.id === chat.user.id) && (
+          {!(auth.profile.id === chat.user.id) && chat.user && (
             <Avatar className='w-8 h-8'>
               <AvatarImage src={chat.user.avatar} width={5} height={5} />
               <AvatarFallback>{chat.user.username[0].toUpperCase()}</AvatarFallback>

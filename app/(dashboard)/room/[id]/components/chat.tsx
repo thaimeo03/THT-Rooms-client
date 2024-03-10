@@ -13,6 +13,8 @@ import { useParams } from 'next/navigation'
 import { getAllChatsApi } from '@/apis/chat.api'
 import Message from './message'
 import { pick } from 'lodash'
+import { RoleContext, RoleContextType } from './role-context-provider'
+import { Roles } from '@/common/enums/roles.enum'
 
 interface ISendMessage {
   content: string
@@ -23,6 +25,7 @@ export default function Chat() {
   const params = useParams()
   const socket = useContext(SocketContext) as Socket
   const { auth } = useContext(AuthContext) as AuthContextType
+  const { role } = useContext(RoleContext) as RoleContextType
 
   const [sendMessage, setSendMessage] = useState({} as ISendMessage)
   const [isSending, setIsSending] = useState(false)
@@ -73,7 +76,10 @@ export default function Chat() {
     }
 
     const newChat: IChat = {
-      user: pick(auth.profile, ['id', 'username', 'avatar', 'role']),
+      user: {
+        ...pick(auth.profile, ['id', 'username', 'avatar']),
+        role: role?.name as Roles
+      },
       created_at: new Date().toISOString(),
       message: sendMessage.content
     }
