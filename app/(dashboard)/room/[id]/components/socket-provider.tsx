@@ -7,7 +7,7 @@ export default function SocketProvider({ children }: { children: React.ReactNode
   const [socket, setSocket] = useState<Socket | null>(null)
 
   useEffect(() => {
-    const connection = io('http://localhost:9999')
+    const connection = io(process.env.NEXT_PUBLIC_BASE_URL as string)
     console.log('Socket connection', connection)
     setSocket(connection)
   }, [])

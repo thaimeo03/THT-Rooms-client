@@ -5,7 +5,7 @@ import usePeer from './usePeer'
 import useMediaStream from './useMediaStream'
 import usePlayer from './usePlayer'
 
-export const socket = io('http://localhost:9999')
+export const socket = io(process.env.NEXT_PUBLIC_BASE_URL as string)
 
 export default function useSocketRoom() {
   // const params = useParams()
