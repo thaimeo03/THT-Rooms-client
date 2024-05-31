@@ -18,7 +18,7 @@ export default function Login() {
         <div className='w-full flex flex-col gap-4'>
           <Link
             href={`${BASE_URL}/auth/google`}
-            className='bg-white text-foreground rounded font-medium w-full p-2 flex flex-row justify-center gap-2 items-center hover:bg-neutral-300 duration-100 ease-in-out'
+            className='bg-white text-black rounded font-medium w-full p-2 flex flex-row justify-center gap-2 items-center hover:bg-neutral-300 duration-100 ease-in-out'
           >
             <FcGoogle size={28} />
             Sign-in with Google
